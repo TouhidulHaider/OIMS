@@ -35,26 +35,33 @@ export const loginUser = async (req, res, next)=>{
     try {
         const user = await User.findOne({email: req.body.email})
         .populate("roles", "role");
-        const { roles } = user;
 
         if(!user){
             return next(createError(404, "User not found!"));
         }
+
         const validPassword = await bcrypt.compare(req.body.password, user.password);
         if(!validPassword){
             return next(createError(400, "Invalid password!"));
         }
+
+        const { roles } = user;
         const token = jwt.sign(
             {id: user._id, isAdmin: user.isAdmin, roles: roles}, 
             process.env.JWT_SECRET
         );
-        res.cookie("access_token", token, {httpOnly: true})
-        .status(200)
-        .json({
-            status: 200,
-            message: "User logged in successfully!",
-            data: user
+        
+        // Set cookie and return success response
+        res.cookie("access_token", token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'strict'
         });
+        
+        return next(createSuccess(200, "User logged in successfully!", {
+            user,
+            token
+        }));
         
     } catch (error) {
         console.log(error);

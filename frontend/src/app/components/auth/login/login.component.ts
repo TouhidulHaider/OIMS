@@ -29,10 +29,16 @@ export default class LoginComponent {
     console.log(this.loginForm.value);
     this.authService.loginService(this.loginForm.value)
     .subscribe( res =>{
-      console.log(res);
-      alert(res.message);
-      this.loginForm.reset();
-      this.router.navigate(['/user-profile']);
+      console.log('Login response:', res);
+      if (res.success) {
+        alert(res.message);
+        localStorage.setItem('token', res.data.token);
+        localStorage.setItem('user', JSON.stringify(res.data.user));
+        this.router.navigate(['/user-profile', res.data.user._id]);
+        this.loginForm.reset();
+      } else {
+        alert('Login failed: ' + res.message);
+      }
     });
   }
 

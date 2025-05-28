@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
@@ -18,6 +18,8 @@ export class AuthService {
   }
 
   getUserById(userId: string): Observable<any> {
-    return this.http.get(`${environment.apiUrl}/user/${userId}`);
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get(`${environment.apiUrl}/user/${userId}`, { headers });
   }
 }

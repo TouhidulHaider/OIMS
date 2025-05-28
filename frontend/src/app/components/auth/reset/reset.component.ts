@@ -6,6 +6,6 @@ import { Component } from '@angular/core';
   templateUrl: './reset.component.html',
   styleUrl: './reset.component.css'
 })
-export class ResetComponent {
+export default class ResetComponent {
 
 }
