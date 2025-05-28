@@ -1,0 +1,109 @@
+<section class="flex items-center justify-center px-8 py-8 sm:px-12 lg:col-span-7 lg:px-16 lg:py-12 xl:col-span-6 mt-20">
+    <div class="max-w-xl lg:max-w-3xl">
+    <div class="relative -mt-16 block">
+        <div class="mt-5 text-center text-3xl font-bold text-blue-400 sm:text-[40px] md:text-[44px]">
+            OIMS
+        </div>
+    </div>
+
+      <form [formGroup]="registerForm" class="mt-8 grid grid-cols-6 gap-6" (submit)="onRegister()">
+        <div class="col-span-6 sm:col-span-3">
+          <label for="FirstName" class="block text-sm font-medium text-gray-700">
+            First Name
+          </label>
+          @if (registerForm.hasError('required', 'firstName') && registerForm.controls['firstName'].dirty) {
+            <p class="text-red-500">First Name is required</p>
+          }
+          <input
+            type="text"
+            id="FirstName"
+            formControlName="firstName"
+            class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm py-3"
+          />
+        </div>
+
+        <div class="col-span-6 sm:col-span-3">
+          <label for="LastName" class="block text-sm font-medium text-gray-700">
+            Last Name
+          </label>
+          @if (registerForm.hasError('required', 'lastName') && registerForm.controls['lastName'].dirty) {
+            <p class="text-red-500">Last Name is required</p>
+          }
+          <input
+            type="text"
+            id="LastName"
+            formControlName="lastName"
+            class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm py-3"
+          />
+        </div>
+
+        <div class="col-span-6">
+          <label for="Email" class="block text-sm font-medium text-gray-700"> Email </label>
+          @if (registerForm.hasError('required', 'email') && registerForm.controls['email'].dirty) {
+            <p class="text-red-500">Email is required</p>
+          }
+          @if (registerForm.hasError('email') && registerForm.controls['email'].dirty) {
+            <p class="text-red-500">Invalid email</p>
+          }
+          <input
+            type="email"
+            id="Email"
+            formControlName="email"
+            class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm py-3"
+          />
+        </div>
+
+        <div class="col-span-6">
+          <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+          @if (registerForm.hasError('required', 'username') && registerForm.controls['username'].dirty) {
+            <p class="text-red-500">Username is required</p>
+          }
+          <input type="text" id="username" formControlName="username" required class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm py-3">
+      </div>
+
+        <div class="col-span-6 sm:col-span-3">
+          <label for="Password1" class="block text-sm font-medium text-gray-700"> Password </label>
+          @if (registerForm.hasError('required', 'password') && registerForm.controls['password'].dirty) {
+            <p class="text-red-500">Password is required</p>
+          }
+          <input
+            type="password"
+            id="Password1"
+            formControlName="password"
+            class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm py-3"
+          />
+        </div>
+
+        <div class="col-span-6 sm:col-span-3">
+          <label for="PasswordConfirmation" class="block text-sm font-medium text-gray-700">
+            Password Confirmation
+          </label>
+          @if (registerForm.hasError('required', 'confirmPassword') && registerForm.controls['confirmPassword'].dirty) {
+            <p class="text-red-500">Password Confirmation is required</p>
+          }
+          @if (registerForm.hasError('confirmPasswordValidator', 'confirmPassword')) {
+            <p class="text-red-500">Passwords do not match</p>
+          }   
+          <input
+            type="password"
+            id="PasswordConfirmation"
+            formControlName="confirmPassword"
+            class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm py-3"
+          />
+        </div>
+
+        <div class="col-span-6 sm:flex sm:items-center sm:gap-4">
+          
+        <button type="submit" [disabled]="registerForm.invalid" class="inline-block shrink-0 rounded-md bg-blue-400 px-12 py-3 text-sm text-white font-medium shadow-md hover:green-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-1 transition duration-300 ease-in-out">
+            Create an account
+        </button>
+
+          <p class="mt-4 text-sm text-gray-500 sm:mt-0">
+            Already have an account?
+            <a class="text-gray-700 underline cursor-pointer" (click)="navigateTo('login')">Log in</a>.
+          </p>
+        </div>
+      </form>
+    </div>
+  </section>
+
