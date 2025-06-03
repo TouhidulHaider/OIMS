@@ -18,19 +18,23 @@ OIMS is a full-stack employee information system designed for organizations. It 
 ✅ MongoDB Integration (CRUD operations for employee data)  
 
 ## 📷 Project Screenshots
-- 🔑 Landing page
-![Landing page]()
-- 🏠 Login & Registration 
-![login]()
-![registration]()
-![reset password]() 
-- 📤 User profile  
-![user profile]()
-![edit profile]()
-- 👨‍💼 Create post  
-![create post]()
-- 📌 Admin Dashboard  
-![admin dashboard]()
+### 🔑 Landing page
+![Landing page](https://github.com/TouhidulHaider/OIMS/blob/main/project_pages/home.png)
+
+### 🏠 Login & Registration 
+![login](https://github.com/TouhidulHaider/OIMS/blob/main/project_pages/login.png)
+![registration](https://github.com/TouhidulHaider/OIMS/blob/main/project_pages/registration.png)
+![reset password](https://github.com/TouhidulHaider/OIMS/blob/main/project_pages/reset-password.png) 
+
+### 📤 User profile  
+![user profile](https://github.com/TouhidulHaider/OIMS/blob/main/project_pages/profile-page.png)
+![edit profile](https://github.com/TouhidulHaider/OIMS/blob/main/project_pages/edit_profile_page.png)
+
+### 👨‍💼 Create post  
+![create post](https://github.com/TouhidulHaider/OIMS/blob/main/project_pages/create-post-page.png)
+
+### 📌 Admin Dashboard  
+![admin dashboard](https://github.com/TouhidulHaider/OIMS/blob/main/project_pages/admin_dashboard.png)
 
 ## 🚀 Installation & Setup
 ### 1️⃣ Clone the Repository
@@ -52,6 +56,7 @@ ng serve
 
 ## 🏗 Project Structure
 - Frontend
+```
 └── 📁frontend
     └── 📁.angular
     └── 📁public
@@ -151,8 +156,9 @@ ng serve
     └── tsconfig.app.json
     └── tsconfig.json
     └── tsconfig.spec.json
-
+```
 - Backend
+```
 └── 📁api
     └── 📁controllers
         └── auth.controller.js
@@ -177,3 +183,4 @@ ng serve
     └── index.js
     └── package-lock.json
     └── package.json
+```
