@@ -6,28 +6,25 @@ export const AuthGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
   const authService = inject(AuthService);
 
-  // Check if user is logged in by verifying token
-  const token = localStorage.getItem('access_token');
-  
-  if (!token) {
+  if (!authService.isAuthenticated()) {
     router.navigate(['/login']);
     return false;
   }
 
   // If route has role requirements, check them
-//   if (route.data['roles']) {
-//     const userRoles = JSON.parse(localStorage.getItem('roles') || '[]');
-//     const requiredRoles = route.data['roles'];
+  if (route.data['roles']) {
+    const user = authService.getUser();
+    const requiredRoles = route.data['roles'];
     
-//     const hasRequiredRole = requiredRoles.some((role: string) => 
-//       userRoles.includes(role)
-//     );
+    const hasRequiredRole = requiredRoles.some((role: string) => 
+      user?.roles?.some((userRole: any) => userRole.role === role)
+    );
 
-//     if (!hasRequiredRole) {
-//       router.navigate(['/unauthorized']);
-//       return false;
-//     }
-//   }
+    if (!hasRequiredRole) {
+      router.navigate(['/unauthorized']);
+      return false;
+    }
+  }
 
   return true;
 }; 

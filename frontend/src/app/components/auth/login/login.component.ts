@@ -17,6 +17,8 @@ export default class LoginComponent {
   authService = inject(AuthService);
   fb = inject(FormBuilder);
   loginForm !: FormGroup;
+  errorMessage: string = '';
+  isLoading: boolean = false;
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -26,18 +28,28 @@ export default class LoginComponent {
   }
 
   onLogin(): void {
-    console.log(this.loginForm.value);
+    if (this.loginForm.invalid) {
+      return;
+    }
+
+    this.isLoading = true;
+    this.errorMessage = '';
+
     this.authService.loginService(this.loginForm.value)
-    .subscribe( res =>{
-      console.log('Login response:', res);
-      if (res.success) {
-        alert(res.message);
-        localStorage.setItem('token', res.data.token);
-        localStorage.setItem('user', JSON.stringify(res.data.user));
-        this.router.navigate(['/user-profile', res.data.user._id]);
-        this.loginForm.reset();
-      } else {
-        alert('Login failed: ' + res.message);
+    .subscribe({
+      next: (res) => {
+        if (res.success) {
+          this.router.navigate(['/user-profile', res.data.user._id]);
+          this.loginForm.reset();
+        } else {
+          this.errorMessage = res.message || 'Login failed';
+        }
+      },
+      error: (error) => {
+        this.errorMessage = error.error?.message || 'An error occurred during login';
+      },
+      complete: () => {
+        this.isLoading = false;
       }
     });
   }

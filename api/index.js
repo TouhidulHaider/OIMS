@@ -7,9 +7,16 @@ import roleRoute from './routes/role.js';
 import authRoute from './routes/auth.js';
 import userRoute from './routes/user.js';
 import cors from 'cors';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import fs from 'fs';
 
 const app = express();
 dotenv.config();
+
+// Get the directory name
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // middlewears
 app.use(express.json());
@@ -21,6 +28,16 @@ app.use(cors({
     origin: 'http://localhost:4200',
     credentials: true,
 }));
+
+// Create uploads directory if it doesn't exist
+const uploadsDir = path.join(__dirname, 'uploads');
+if (!fs.existsSync(uploadsDir)) {
+    fs.mkdirSync(uploadsDir, { recursive: true });
+}
+
+// Serve static files from uploads directory
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 // routes
 app.use('/api/role', roleRoute);
 app.use('/api/auth', authRoute);

@@ -36,8 +36,27 @@ export default class UserProfileComponent {
     this.router.navigate(['/create-post']);
   }
 
+  navigateToDashboard(): void {
+    this.router.navigate(['/admin-dashboard']);
+  }
+
   getRoleNames(): string {
     if (!this.userData?.roles) return '';
     return this.userData.roles.map((role: any) => role.role).join(', ');
+  }
+
+  logout(): void {
+    this.authService.logout().subscribe({
+      next: () => {
+        // Navigation is handled in the auth service
+      },
+      error: (error) => {
+        console.error('Logout error:', error);
+        // Force logout even if the server request fails
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        this.router.navigate(['/login']);
+      }
+    });
   }
 }

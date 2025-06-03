@@ -5,6 +5,7 @@ import { AuthService } from '../../../core/services/auth.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { emailValidator } from '../../../validators/email.validator';
+import { catchError } from 'rxjs';
 
 @Component({
   selector: 'app-forget-password',
@@ -31,7 +32,11 @@ export default class ForgetPasswordComponent {
 
   onSendEmail(): void {
     console.log(this.forgetPasswordForm.value);
-    alert('Email sent');
+    this.authService.sendEmail(this.forgetPasswordForm.value)
+    .subscribe(res => {
+      console.log(res);
+      alert('Email sent');
+    });
   }
 
 
