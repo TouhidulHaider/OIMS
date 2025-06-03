@@ -54,11 +54,11 @@
         </div>
 
         <div class="col-span-6">
-          <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+          <label for="username" autocomplete="off" class="block text-sm font-medium text-gray-700">Username</label>
           @if (registerForm.hasError('required', 'username') && registerForm.controls['username'].dirty) {
             <p class="text-red-500">Username is required</p>
           }
-          <input type="text" id="username" formControlName="username" required class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm py-3">
+          <input type="text" id="username" formControlName="username" required class="mt-1 px-3 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm py-3">
       </div>
 
         <div class="col-span-6 sm:col-span-3">
